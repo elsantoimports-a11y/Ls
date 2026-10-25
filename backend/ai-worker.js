@@ -92,7 +92,7 @@ export default {
         typeof result.output_text === "string" ? result.output_text :
         typeof result.result === "string" ? result.result :
         Array.isArray(result.content)
-          ? result.content.filter(part => part && part.type === "text" && typeof part.text === "string").map(part => part.text).join("\\n")
+          ? result.content.filter(part => part && part.type === "text" && typeof part.text === "string").map(part => part.text).join("\n")
           : ""
       );
       if (typeof reply !== "string" || !reply.trim()) {
