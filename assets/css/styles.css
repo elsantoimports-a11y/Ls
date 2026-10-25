@@ -260,3 +260,13 @@ body:before{content:"";position:fixed;inset:-15%;z-index:-1;pointer-events:none;
 .credential-cta span{font-size:1rem}
 @media(max-width:760px){.credential-grid{grid-template-columns:1fr}.credential-card{min-height:330px}.intent-options{grid-template-columns:1fr}.service-intent{padding:18px}.cat{padding:18px 15px 5px}.svc{margin-inline:-5px;padding:18px 5px}.svc .btn{min-width:0}}
 @media(prefers-reduced-motion:reduce){body:before{animation:none}.cat,.svc,.intent-options a,.credential-card,.credential-card:after{transition:none!important}.cat:hover,.svc:hover,.intent-options a:hover,.credential-card:hover{transform:none}}
+
+
+/* Service catalog metadata: duration, deposit and availability details */
+.svc-meta{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:12px}
+.svc-meta-item{display:inline-flex;align-items:center;gap:5px;padding:6px 9px;border:1px solid #ffffff1b;background:#ffffff06;color:#bdb8ad;font-size:.72rem;line-height:1.2}
+.svc-meta-item.svc-deposit{border-color:#c6a56a55;background:#c6a56a0d;color:var(--gold-light);font-weight:800}
+.svc .price{color:var(--gold-light);font-variant-numeric:tabular-nums}
+.svc .btn{transition:background .2s,border-color .2s,color .2s,transform .2s}
+.svc .btn:hover{transform:translateY(-2px)}
+@media(max-width:680px){.svc-meta{gap:6px}.svc-meta-item{font-size:.68rem;padding:6px 7px}.svc .price{font-size:1.15rem}}
