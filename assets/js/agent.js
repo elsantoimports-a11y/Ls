@@ -24,6 +24,11 @@
   document.body.appendChild(panel);
   var messages = $('#ls-agent-messages', panel);
   var options = $('#ls-agent-options', panel);
+  var form = document.createElement('form');
+  form.className = 'ls-agent-input';
+  form.innerHTML = '<input id="ls-agent-text" type="text" maxlength="500" autocomplete="off" placeholder="Escribí qué necesitás…" aria-label="Tu consulta"><button type="submit" aria-label="Enviar mensaje">Enviar</button>';
+  panel.insertBefore(form, panel.querySelector('.ls-agent-foot'));
+  var textInput = $('#ls-agent-text', form);
 
   function addMessage(text, who) {
     var node = document.createElement('div');
@@ -59,6 +64,36 @@
     a.textContent = label;
     options.appendChild(a);
   }
+  function handleText(raw) {
+    var text = String(raw || '').trim();
+    if (!text) return;
+    addMessage(text, 'user');
+    textInput.value = '';
+    clearOptions();
+    var q = text.toLowerCase();
+    if (/\b(reserv|turno|agenda|horario|cita|disponib)/.test(q)) {
+      addMessage('Vamos a llevarte a la reserva. Para consultar horarios reales, abrí la agenda oficial; si preferís coordinar, te conecto por WhatsApp.', 'agent');
+      externalAction('Elegir día y horario', C.booking.url, true);
+      externalAction('Coordinar por WhatsApp', waLink(chosen), false);
+      option('Ver servicios', home);
+      return;
+    }
+    if (/\b(precio|cu[aá]nto|vale|cuesta|cat[aá]logo|servicio)/.test(q)) { allPrices(); return; }
+    if (/\b(facial|piel|limpieza|radiofrecuencia|microdermo)/.test(q)) { category('Tratamientos faciales'); return; }
+    if (/\b(gema|cristal|dental|dientes|sonrisa)/.test(q)) { category('Gemas dentales'); return; }
+    if (/\b(barba|ceja|perfilado)/.test(q)) { category('barba'); return; }
+    if (/\b(corte|pelo|cabello|degradado|fade|barber)/.test(q)) { category('Barbería'); return; }
+    if (/\b(hola|buenas|buenos|buen|info|ayuda|quiero)/.test(q)) {
+      addMessage('Te puedo orientar con corte, barba, cejas, limpieza facial o gemas dentales. Decime qué servicio buscás o elegí una opción.', 'agent');
+      home(); return;
+    }
+    addMessage('Quiero orientarte bien y no inventarte información. Elegí el servicio que te interesa o escribinos por WhatsApp para una consulta personalizada.', 'agent');
+    option('Ver todos los servicios', allPrices);
+    externalAction('Consultar por WhatsApp', waLink(chosen), true);
+    option('Volver al inicio', home);
+  }
+  form.addEventListener('submit', function (e) { e.preventDefault(); handleText(textInput.value); });
+
   function home() {
     clearOptions();
     addMessage('¿Qué te gustaría hacer hoy?', 'agent');
