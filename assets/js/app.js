@@ -211,6 +211,23 @@
   /* ---------- Init ---------- */
   var y = $('#year'); if (y) { y.textContent = new Date().getFullYear(); }
   $('#maps').href = C.business.mapsUrl;
+  $('#directions').href = C.business.directionsUrl;
+  (function () {
+    var box = $('#map-box'); if (!box) { return; }
+    function load() {
+      var f = document.createElement('iframe');
+      f.title = 'Mapa de Los Santos Studio en Google Maps';
+      f.loading = 'lazy';
+      f.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      f.addEventListener('load', function () { var ph = $('#map-ph'); if (ph) { ph.remove(); } });
+      f.src = C.business.mapsEmbedUrl;
+      box.appendChild(f);
+    }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { load(); io.disconnect(); } }, { rootMargin: '400px 0px' });
+      io.observe(box);
+    } else { load(); }
+  })();
   renderCatalog();
   renderHours();
   renderReviews();

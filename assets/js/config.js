@@ -11,7 +11,11 @@ window.LS_CONFIG = {
     // Formato internacional sin "+" ni espacios (54 = Argentina, 9 = móvil).
     // CONFIRMAR con el titular: el área 2966 corresponde a Santa Cruz, no a Córdoba.
     whatsapp: '5492966685460',
-    mapsUrl: 'https://maps.google.com/?q=25+de+Mayo+18+Cordoba+Argentina',
+    // Ver ubicación (abre Google Maps) y cómo llegar (ruta desde la ubicación del usuario).
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=25+de+Mayo+18+Cordoba+Argentina',
+    directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=25+de+Mayo+18+Cordoba+Argentina',
+    // Mapa embebido (no requiere clave). Si algún día se confirma el lugar en Google Maps, reemplazar por su enlace de "Compartir > Insertar un mapa".
+    mapsEmbedUrl: 'https://www.google.com/maps?q=25+de+Mayo+18+Cordoba+Argentina&output=embed',
     // Horarios de referencia (se muestran como texto; no se calcula "abierto ahora").
     hours: [
       { days: 'Lunes a sábado', time: '10:00–13:00 y 15:00–20:00' },

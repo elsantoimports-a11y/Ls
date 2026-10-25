@@ -103,6 +103,11 @@ header{position:sticky;top:0;z-index:20;background:#0b0b0bf5;border-bottom:1px s
 .hours li{display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-bottom:1px solid var(--line)}
 .hours span:last-child{color:var(--white)}
 
+.map{margin:16px 0;height:260px;background:#1a1a1a;border:1px solid var(--line)}
+.map iframe{width:100%;height:100%;border:0;display:block;filter:grayscale(.3) contrast(1.05)}
+.map-ph{padding:20px;color:var(--muted);font-size:.85rem}
+.loc-actions{display:flex;flex-wrap:wrap;gap:10px}
+.loc-actions .btn{margin-top:0}
 /* Closing */
 .closing{padding:72px 0;background:var(--gold);color:#111}
 .closing .wrap{display:flex;align-items:center;justify-content:space-between;gap:28px}
