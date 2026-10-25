@@ -96,14 +96,25 @@
     </div>
   </section>
 
-  <section class="section reviews" id="resenas" aria-labelledby="h-rev" hidden>
+  <section class="section reviews" id="resenas" aria-labelledby="h-rev">
     <div class="wrap">
       <div class="section-head">
-        <div class="eyebrow">Opiniones</div>
-        <h2 id="h-rev">Lo que dicen <span class="gold">los clientes.</span></h2>
+        <div class="eyebrow">Opiniones reales en Google</div>
+        <h2 id="h-rev">La experiencia de <span class="gold">nuestros clientes.</span></h2>
+        <p class="reviews-intro">Consultá las reseñas publicadas en nuestra ficha de Google. Se abren desde la fuente original para que puedas leer las opiniones completas y sus fechas.</p>
       </div>
-      <div class="reviews-grid" id="reviews-grid"></div>
-      <p class="reviews-src" id="reviews-src"></p>
+      <div class="google-rating" aria-label="Calificación de Google: 5 de 5 estrellas, 15 reseñas">
+        <div class="google-rating-score">5.0 <span aria-hidden="true">★★★★★</span></div>
+        <p>Calificación en Google <span class="rating-separator">·</span> 15 reseñas</p>
+      </div>
+      <div class="google-reviews-frame">
+        <iframe id="google-reviews-embed" title="Ficha de Los Santos Studio en Google Maps, donde se pueden consultar las reseñas" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="reviews-actions">
+        <a class="btn" id="reviews-open-google" href="https://maps.app.goo.gl/D6KoRzQW8Js8nGUj7" target="_blank" rel="noopener">Leer reseñas en Google</a>
+        <a class="btn ghost" id="reviews-write-google" href="https://g.page/r/CVgL9JOnUkAiEAE/review" target="_blank" rel="noopener">Dejar mi reseña</a>
+      </div>
+      <p class="reviews-src">Las opiniones y su actualización dependen de Google. No publicamos reseñas inventadas ni modificadas.</p>
     </div>
   </section>
 
