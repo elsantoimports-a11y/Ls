@@ -270,26 +270,3 @@ body:before{content:"";position:fixed;inset:-15%;z-index:-1;pointer-events:none;
 .svc .btn{transition:background .2s,border-color .2s,color .2s,transform .2s}
 .svc .btn:hover{transform:translateY(-2px)}
 @media(max-width:680px){.svc-meta{gap:6px}.svc-meta-item{font-size:.68rem;padding:6px 7px}.svc .price{font-size:1.15rem}}
-
-
-/* Membresías mensuales */
-.memberships{background:radial-gradient(ellipse at 50% 0%,#c6a56a0d 0,transparent 55%),#0e0e0d;border-block:1px solid var(--line)}
-.memberships .section-head{max-width:760px}
-.memberships-intro{max-width:680px;line-height:1.8}
-.membership-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
-.membership-card{display:flex;flex-direction:column;min-width:0;padding:28px 24px;border:1px solid #ffffff24;background:linear-gradient(145deg,#171715,#101010 70%);transition:transform .2s,border-color .2s,box-shadow .2s}
-.membership-card:hover{transform:translateY(-4px);border-color:#c6a56a88;box-shadow:0 16px 45px #0006}
-.membership-featured{border-color:#c6a56a99;background:linear-gradient(145deg,#292116,#12110f 72%);box-shadow:inset 0 2px 0 var(--gold)}
-.membership-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}
-.membership-kicker{font-size:.65rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
-.membership-medal{font-size:1.5rem}
-.membership-card h3{font-family:'DM Serif Display',Georgia,serif;font-size:1.55rem;font-weight:400;line-height:1.2;min-height:2.4em;margin-bottom:14px}
-.membership-price{font-size:clamp(1.7rem,2.4vw,2.2rem);font-weight:800;letter-spacing:-.04em;white-space:nowrap;margin-bottom:14px}
-.membership-price span{font-size:.78rem;font-weight:500;letter-spacing:0;color:var(--muted)}
-.membership-description{min-height:4.5em;color:var(--muted);font-size:.88rem;line-height:1.7}
-.membership-card ul{list-style:none;margin:4px 0 26px;padding:0;border-top:1px solid var(--line);flex:1}
-.membership-card li{position:relative;padding:13px 0 13px 22px;border-bottom:1px solid var(--line);font-size:.85rem;line-height:1.5}
-.membership-card li:before{content:"✦";position:absolute;left:0;top:14px;color:var(--gold)}
-.membership-cta{width:100%;margin-top:auto}
-@media(max-width:900px){.membership-grid{grid-template-columns:1fr 1fr}.membership-featured{grid-row:span 1}}
-@media(max-width:600px){.membership-grid{grid-template-columns:1fr}.membership-card{padding:25px 22px}.membership-card h3,.membership-description{min-height:0}.membership-price{font-size:2rem}}
