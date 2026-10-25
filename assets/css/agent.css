@@ -27,3 +27,10 @@
 .ls-agent-foot{padding:11px 18px;border-top:1px solid #ffffff16;color:#a9a59c;font-size:.66rem}
 @media(max-width:680px){#ls-agent-launch{right:12px;bottom:calc(84px + env(safe-area-inset-bottom));padding:11px 13px;font-size:.68rem}#ls-agent-panel{right:8px;bottom:calc(142px + env(safe-area-inset-bottom));width:calc(100vw - 16px);max-height:min(590px,calc(100dvh - 170px))}.ls-agent-messages{padding:14px}.ls-agent-options{padding:0 14px 14px}}
 @media(prefers-reduced-motion:reduce){#ls-agent-panel[data-open="true"]{animation:none}#ls-agent-launch{transition:none}}
+
+.ls-agent-input{display:flex;gap:8px;padding:0 18px 14px}
+.ls-agent-input input{flex:1;min-width:0;width:0;background:#191917;border:1px solid #ffffff28;color:#f4f1ea;padding:12px;font:400 .78rem/1.4 Manrope,system-ui,sans-serif;outline:none}
+.ls-agent-input input:focus{border-color:#c6a56a}
+.ls-agent-input input::placeholder{color:#9b978e}
+.ls-agent-input button{background:#c6a56a;color:#111;border:1px solid #c6a56a;padding:0 14px;font:800 .72rem Manrope,system-ui,sans-serif;cursor:pointer}
+@media(max-width:680px){.ls-agent-input{padding:0 14px 12px}}
