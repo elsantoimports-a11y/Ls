@@ -23,6 +23,11 @@ window.LS_CONFIG = {
     ]
   },
 
+  ai: {
+    // Endpoint del backend privado. Completar con la URL del Worker desplegado; nunca poner la API key acá.
+    endpoint: ''
+  },
+
   booking: {
     // Sistema de reservas oficial (Google Calendar, página de citas).
     url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2wd41-0TRkDGqtjj21BZ-URZPzu9_tmbaNFisHf1f77wzD5F50uIMV_KjPCvh2pYWoKB6arA_U?gv=true',
