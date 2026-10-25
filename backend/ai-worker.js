@@ -87,7 +87,14 @@ export default {
         max_tokens: 350,
         temperature: 0.3
       });
-      const reply = result && (result.response || result.result || result.output_text);
+      const reply = result && (
+        typeof result.response === "string" ? result.response :
+        typeof result.output_text === "string" ? result.output_text :
+        typeof result.result === "string" ? result.result :
+        Array.isArray(result.content)
+          ? result.content.filter(part => part && part.type === "text" && typeof part.text === "string").map(part => part.text).join("\\n")
+          : ""
+      );
       if (typeof reply !== "string" || !reply.trim()) {
         return json({ error: "Empty AI response" }, 502, allowed);
       }
