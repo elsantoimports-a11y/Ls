@@ -48,43 +48,138 @@ window.LS_CONFIG = {
    */
   catalog: [
     {
-      id: 'corte',
-      category: 'Barbería',
-      name: 'Corte de cabello',
-      description: 'Diseño y terminación precisa, adaptados a tus facciones y a tu estilo.',
-      price: 22000,
-      duration: null,
+      id: 'corte-autor',
+      category: 'Barbería 💈',
+      name: 'Corte De Autor 🇦🇷 ✂️',
+      description: 'Un corte pensado para tu identidad, tus facciones y el estilo que querés transmitir.',
+      price: 23000,
+      duration: 40,
+      extras: 5,
+      depositPercent: 90,
       active: true
     },
     {
-      id: 'corte-barba',
-      category: 'Barbería',
-      name: 'Corte + barba',
-      description: 'Corte, barba y detalles del rostro en una sola visita.',
-      price: 30000,
-      duration: null,
+      id: 'corte-cejas',
+      category: 'Barbería 💈',
+      name: 'Atención - Estándar - Corte y Cejas',
+      description: 'Corte preciso y cejas prolijas para un look limpio de principio a fin.',
+      price: 27000,
+      duration: 45,
+      extras: 5,
+      depositPercent: 90,
       active: true
     },
     {
-      id: 'facial-express',
-      category: 'Cuidado facial',
-      name: 'Limpieza facial express',
-      description: 'Una pausa de cuidado para limpiar la piel y recuperar una apariencia fresca.',
+      id: 'ejecutiva',
+      category: 'Barbería 💈',
+      name: 'Atención - Ejecutiva - Corte / Cejas / Barba 🏅',
+      description: 'Un servicio integral para salir con corte, cejas y barba en sintonía.',
+      price: 40000,
+      duration: 40,
+      extras: 0,
+      depositPercent: 90,
+      active: true
+    },
+    {
+      id: 'deluxe',
+      category: 'Barbería 💈',
+      name: 'Atención - Deluxe 💎',
+      description: 'Una experiencia extendida de atención premium. Consultá qué incluye antes de reservar.',
+      price: 70000,
+      duration: 100,
+      extras: 0,
+      depositPercent: 90,
+      active: true
+    },
+    {
+      id: 'barba-express',
+      category: 'Barbería 💈',
+      name: 'Arreglo de Barba Express',
+      description: 'Mantenimiento y definición de barba en una visita ágil.',
       price: 15000,
-      duration: null,
+      duration: 20,
+      extras: 0,
+      depositPercent: 90,
+      active: true
+    },
+    {
+      id: 'ritual-barba',
+      category: 'Barbería 💈',
+      name: 'Ritual de Barba (Toallas Calientes)',
+      description: 'Un ritual de barba con toallas calientes para una experiencia de cuidado superior.',
+      price: 18000,
+      duration: 25,
+      extras: 0,
+      depositPercent: 90,
+      active: true
+    },
+    {
+      id: 'cejas',
+      category: 'Barbería 💈',
+      name: 'Perfilado y Diseño de Cejas',
+      description: 'Diseño y perfilado para equilibrar y definir la expresión del rostro.',
+      price: 5000,
+      duration: 20,
+      extras: 0,
+      depositPercent: 90,
       active: true
     },
     {
       id: 'facial-deluxe',
-      category: 'Cuidado facial',
-      name: 'Limpieza facial deluxe',
-      description: 'Un protocolo más completo, adaptado a tu tipo de piel.',
-      price: 27000,
-      duration: null,
+      category: 'Tratamientos faciales 💆🏻‍♂️',
+      name: 'Limpieza Facial Deluxe',
+      description: 'Limpieza facial completa para una piel más cuidada y una apariencia renovada.',
+      price: 35000,
+      duration: 30,
+      extras: 0,
+      depositPercent: 90,
+      active: true
+    },
+    {
+      id: 'facial-express',
+      category: 'Tratamientos faciales 💆🏻‍♂️',
+      name: 'Limpieza Facial Express',
+      description: 'Una puesta a punto de la piel en una sesión breve y enfocada.',
+      price: 25000,
+      duration: 20,
+      extras: 0,
+      depositPercent: 90,
+      active: true
+    },
+    {
+      id: 'gemas-simples',
+      category: 'Gemas dentales 🦷💠',
+      name: 'Cristales Simples 💠',
+      description: 'Un detalle de brillo sutil para personalizar tu sonrisa.',
+      price: 15000,
+      duration: 15,
+      extras: 3,
+      depositPercent: 90,
+      active: true
+    },
+    {
+      id: 'gemas-forma',
+      category: 'Gemas dentales 🦷💠',
+      name: 'Cristales con Forma 💠',
+      description: 'Cristales con forma para sumar un detalle distintivo a tu sonrisa.',
+      price: 22000,
+      duration: 15,
+      extras: 2,
+      depositPercent: 90,
+      active: true
+    },
+    {
+      id: 'gemas-combinaciones',
+      category: 'Gemas dentales 🦷💠',
+      name: 'Combinaciones de Cristales 💎🎁',
+      description: 'Una combinación personalizada de cristales para un resultado con más presencia.',
+      price: 30000,
+      duration: 20,
+      extras: 5,
+      depositPercent: 90,
       active: true
     }
   ],
-
   /*
    * Reseñas en vivo con Google Places API (New).
    * Configurar una clave restringida por HTTP referrer a este dominio y habilitar Places API.
