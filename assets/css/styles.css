@@ -216,3 +216,47 @@ footer .brand-logo{width:120px}
 .google-reviews-live-label{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
 .google-reviews-live-label span{width:7px;height:7px;border-radius:50%;background:var(--gold)}
 @media(max-width:680px){.google-reviews-panel{grid-template-columns:auto minmax(0,1fr);gap:15px;padding:20px}.google-mark{width:44px;height:44px;font-size:1.7rem}.google-reviews-live-label{grid-column:1/-1;padding-top:12px;border-top:1px solid var(--line)}}
+
+
+/* Visual upgrade: ambient motion, tactile service cards and credential showcase */
+body{position:relative;isolation:isolate}
+body:before{content:"";position:fixed;inset:-15%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 12% 18%,#c6a56a12 0,transparent 28%),radial-gradient(ellipse at 88% 52%,#9a743514 0,transparent 30%),radial-gradient(ellipse at 48% 100%,#c6a56a0a 0,transparent 32%);animation:ambient-drift 18s ease-in-out infinite alternate}
+@keyframes ambient-drift{from{transform:translate3d(-1.5%,0,0) scale(1)}to{transform:translate3d(1.5%,-1%,0) scale(1.035)}}
+.section-head{position:relative}
+.section-head:after{content:"";display:block;width:54px;height:2px;margin-top:24px;background:linear-gradient(90deg,var(--gold),transparent)}
+#catalog{display:grid;gap:26px}
+.cat{position:relative;margin:0;padding:22px 26px 8px;border:1px solid #ffffff18;background:linear-gradient(135deg,#ffffff06,#c6a56a05);transition:border-color .25s,transform .25s}
+.cat:hover{border-color:#c6a56a66;transform:translateY(-2px)}
+.cat-title{border-bottom-color:#c6a56a66}
+.svc{position:relative;margin:0 -10px;padding:20px 10px;border-bottom:1px solid #ffffff13;transition:background .25s,transform .25s,padding .25s}
+.svc:hover{background:#c6a56a0a;transform:translateX(3px)}
+.svc[data-selected="true"]{border-left:3px solid var(--gold);padding-left:18px}
+.svc .btn{min-width:150px}
+.service-intent{margin:28px 0 34px;padding:22px;border:1px solid #c6a56a44;background:linear-gradient(115deg,#c6a56a12,transparent 72%)}
+.service-intent>p{margin:0 0 14px;font-size:.75rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light)}
+.intent-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.intent-options a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 17px;border:1px solid #ffffff26;background:#0d0d0d;color:var(--white);font-size:.83rem;font-weight:800;transition:background .2s,border-color .2s,transform .2s}
+.intent-options a span{color:var(--gold-light)}
+.intent-options a:hover{background:#c6a56a16;border-color:var(--gold);transform:translateY(-2px)}
+.credentials{position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 12%,#c6a56a12,transparent 38%),linear-gradient(180deg,#10100f,#0b0b0b);border-block:1px solid #ffffff12}
+.credentials:before{content:"";position:absolute;width:420px;height:420px;right:-180px;top:5%;border:1px solid #c6a56a20;border-radius:50%;box-shadow:0 0 0 34px #c6a56a05,0 0 0 72px #c6a56a04;pointer-events:none}
+.credentials .wrap{position:relative}
+.credentials-intro{max-width:680px;color:var(--muted);line-height:1.8}
+.credential-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:36px}
+.credential-card{position:relative;display:flex;flex-direction:column;min-height:360px;padding:30px;border:1px solid #ffffff24;background:linear-gradient(145deg,#1a1a19 0%,#101010 60%,#15120d 100%);overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
+.credential-card:after{content:"";position:absolute;inset:auto -25% -58% 20%;height:230px;background:radial-gradient(ellipse,#c6a56a17,transparent 68%);pointer-events:none;transition:transform .4s}
+.credential-card:hover{transform:translateY(-6px);border-color:#c6a56a99;box-shadow:0 22px 70px #0008}
+.credential-card:hover:after{transform:translateY(-22px)}
+.credential-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:28px}
+.credential-kicker{font-size:.65rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-light)}
+.credential-symbol{display:grid;place-items:center;width:48px;height:48px;border:1px solid #c6a56a70;border-radius:50%;color:var(--gold-light);font-family:'DM Serif Display',Georgia,serif;font-size:1.05rem}
+.credential-featured{border-color:#c6a56a88;background:linear-gradient(145deg,#282116 0%,#111 56%,#17120a 100%)}
+.credential-featured .credential-symbol{background:var(--gold);color:#111}
+.credential-card h3{font-family:'DM Serif Display',Georgia,serif;font-size:1.8rem;font-weight:400;margin-bottom:12px}
+.credential-card>p{max-width:440px;color:#c2beb5;line-height:1.75}
+.credential-price{margin-top:auto;padding-top:16px;color:var(--gold-light);font-size:2.2rem;font-weight:800;letter-spacing:-.04em}
+.credential-card small{display:block;min-height:42px;margin:3px 0 22px;color:var(--muted);line-height:1.6}
+.credential-cta{width:100%;justify-content:space-between;position:relative;z-index:1}
+.credential-cta span{font-size:1rem}
+@media(max-width:760px){.credential-grid{grid-template-columns:1fr}.credential-card{min-height:330px}.intent-options{grid-template-columns:1fr}.service-intent{padding:18px}.cat{padding:18px 15px 5px}.svc{margin-inline:-5px;padding:18px 5px}.svc .btn{min-width:0}}
+@media(prefers-reduced-motion:reduce){body:before{animation:none}.cat,.svc,.intent-options a,.credential-card,.credential-card:after{transition:none!important}.cat:hover,.svc:hover,.intent-options a:hover,.credential-card:hover{transform:none}}
