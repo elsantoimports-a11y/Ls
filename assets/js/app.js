@@ -179,10 +179,6 @@
     if (!R) { return; }
     var section = $('#resenas');
     if (!section) { return; }
-    var frame = $('#google-reviews-embed');
-    if (frame && R.placeId) {
-      frame.src = 'https://www.google.com/maps?output=embed&q=place_id:' + encodeURIComponent(R.placeId);
-    }
     var open = $('#reviews-open-google');
     if (open && R.sourceUrl) { open.href = R.sourceUrl; }
     var write = $('#reviews-write-google');
