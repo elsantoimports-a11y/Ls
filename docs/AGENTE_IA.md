@@ -1,28 +1,26 @@
-# Asistente IA real — Los Santos Studio
+# Asistente IA — Los Santos Studio (Cloudflare Workers AI)
 
 ## Estado
-- La web ya admite un endpoint de IA en `assets/js/config.js` → `ai.endpoint`.
-- El backend está en `backend/ai-worker.js` para Cloudflare Workers.
-- **No está activo en producción hasta desplegar el Worker, cargar la clave como secret y configurar la URL.** Si `ai.endpoint` está vacío, el asistente usa su flujo guiado local.
+- La web admite un endpoint configurable en `assets/js/config.js` → `ai.endpoint`.
+- El backend está en `backend/ai-worker.js` y usa el binding `env.AI` de Cloudflare Workers AI.
+- **No está activo en producción hasta crear/desplegar el Worker y poner su URL en `ai.endpoint`.** Si está vacío, la web usa el flujo guiado local.
+- Esta variante no requiere una clave de OpenAI: usa el servicio Workers AI de Cloudflare y queda sujeta a la disponibilidad, límites y facturación de tu cuenta.
 
-## 1. Crear el backend (Cloudflare Workers)
-1. Entrá a Cloudflare Dashboard → Workers & Pages → Create → Worker.
-2. Pegá el contenido de `backend/ai-worker.js` en el editor y desplegalo.
-3. En Settings → Variables and Secrets, agregá:
-   - Secret `OPENAI_API_KEY`: tu clave de API de OpenAI.
-   - Variable `ALLOWED_ORIGIN`: `https://elsantoimports-a11y.github.io`.
-   - Opcional `OPENAI_MODEL`: `gpt-4o-mini`.
-4. Volvé a desplegar después de guardar los secrets. No pegues la clave en GitHub, HTML, JavaScript público ni en el chat.
+## 1. Crear el Worker
+1. En Cloudflare Dashboard, entrá a **Workers & Pages** y creá un Worker.
+2. Pegá el contenido de `backend/ai-worker.js` y desplegalo.
+3. En la configuración del Worker, agregá el binding de **Workers AI** con el nombre exacto `AI`. El código lo consume como `env.AI`.
+4. Agregá la variable de entorno `ALLOWED_ORIGIN` con el valor `https://elsantoimports-a11y.github.io`.
+5. Guardá y desplegá de nuevo. No agregues claves de API a los archivos públicos.
 
 ## 2. Conectar la web
-1. Copiá la URL HTTPS del Worker (por ejemplo, la URL `workers.dev` que te asigna Cloudflare).
+1. Copiá la URL HTTPS del Worker que te asignó Cloudflare (por ejemplo, una URL `workers.dev`).
 2. En `assets/js/config.js`, cambiá `ai.endpoint: ''` por esa URL.
-3. Guardá el cambio en GitHub. El workflow publicará la web.
-4. Probá en la web preguntas como “¿cuánto sale una limpieza facial?”, “quiero corte y barba” y “quiero reservar”. Comprobá que el asistente no afirme que reservó: debe llevar a la agenda oficial.
+3. Guardá el cambio en GitHub y esperá a que termine correctamente el workflow de Pages.
+4. Probá en la web preguntas como “¿cuánto sale una limpieza facial?”, “quiero corte y barba” y “quiero reservar”. Verificá que el agente lleve a la agenda oficial y nunca diga que el turno quedó confirmado.
 
 ## Seguridad y límites
-- La clave vive únicamente como secret del Worker.
-- El Worker limita método, origen, tamaño del cuerpo y longitud del mensaje; devuelve respuestas JSON y no expone errores del proveedor.
-- El control por origen reduce llamadas desde otros sitios, pero no es autenticación ni una defensa completa contra abuso/costos. Antes de promocionar el agente públicamente, agregar rate limiting en Cloudflare y monitorear el consumo de la API.
-- Este agente conversa y guía a la reserva. **No crea ni confirma turnos**; la agenda oficial sigue siendo Google Calendar.
-- Los precios en el catálogo están marcados como provisionales en el repositorio: confirmalos antes de presentar el sitio como tarifa definitiva.
+- El Worker solo acepta peticiones desde el origen configurado, limita método, tamaño de solicitud y longitud del mensaje, y no expone detalles internos de errores.
+- La validación de origen ayuda a limitar llamadas casuales desde otros sitios, pero no es autenticación ni protección completa contra abuso/costos. Antes de promocionar el agente, configurá rate limiting y monitoreá el uso en Cloudflare.
+- El asistente conversa y guía a la reserva. **No crea ni confirma turnos**; la agenda oficial sigue siendo Google Calendar.
+- Los precios del catálogo están marcados como provisionales en el repositorio. Confirmalos antes de tratarlos como tarifas definitivas.
