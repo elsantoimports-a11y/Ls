@@ -4,12 +4,13 @@ Web responsive de captación para Los Santos Studio. El sitio y el backend de ag
 
 ## Sitio web
 
-- Diseño responsive oscuro con acentos dorados, tipografía Manrope + DM Sans.
-- Secciones comerciales, servicios, formulario de solicitud, preguntas frecuentes y ubicación.
-- WhatsApp configurado en `index.html` con el número proporcionado por el titular: `5492966685460`. Confirmar que el prefijo internacional/área corresponda antes de anunciar la web.
-- Catálogo ampliable: editar el arreglo `CATALOG` en el JavaScript al final de `index.html`. Cada servicio tiene `id`, `category`, `name`, `description`, `price`, `duration` y `active`. Para ocultar un servicio, usar `active:false`.
-- Actualizar precios y duración en `CATALOG` y en el backend `Code.gs` para que coincidan.
-- El formulario actual genera una solicitud por WhatsApp; no confirma disponibilidad ni crea por sí mismo un evento de Google Calendar.
+- Landing estática (sin frameworks): `index.html`, `assets/css/styles.css`, `assets/js/app.js`, `assets/js/config.js`.
+- **Todo lo editable está en `assets/js/config.js`**: servicios y precios (provisionales), WhatsApp, horarios, URL de reservas, reseñas, ID de GA4.
+- Reserva: Google Calendar (iframe en escritorio, apertura del flujo oficial en móvil). El formulario propio anterior fue reemplazado; el servicio elegido solo se refleja en el resumen y en WhatsApp.
+- Verificación: `node scripts/check.mjs` (precios/nombres vs `Code.gs`, enlaces, recursos, anclas).
+- Estado de catálogo, medición y automatización: ver `docs/AUTOMATIZACION.md`.
+- Foto del hero: provisoria (stock). Reemplazar por una propia.
+- WhatsApp: `5492966685460`. Confirmar el prefijo de área (2966 es de Santa Cruz).
 
 ## Backend Google Calendar
 

@@ -20,12 +20,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Check catalog and links
+        run: node scripts/check.mjs
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Prepare public site
         run: |
           mkdir -p _site
           cp index.html _site/index.html
+          cp -r assets _site/assets
+          touch _site/.nojekyll
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
