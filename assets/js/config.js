@@ -35,7 +35,7 @@ window.LS_CONFIG = {
 
   analytics: {
     // ID de medición de GA4 (ej. 'G-XXXXXXXXXX'). Vacío = no se carga nada y no se registra ningún dato.
-    ga4MeasurementId: ''
+    ga4MeasurementId: 'G-NKMN85MRQG'
   },
 
   /*
