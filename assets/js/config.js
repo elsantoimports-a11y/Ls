@@ -12,10 +12,10 @@ window.LS_CONFIG = {
     // CONFIRMAR con el titular: el área 2966 corresponde a Santa Cruz, no a Córdoba.
     whatsapp: '5492966685460',
     // Ver ubicación (abre Google Maps) y cómo llegar (ruta desde la ubicación del usuario).
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=25+de+Mayo+18+Cordoba+Argentina',
-    directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=25+de+Mayo+18+Cordoba+Argentina',
-    // Mapa embebido (no requiere clave). Si algún día se confirma el lugar en Google Maps, reemplazar por su enlace de "Compartir > Insertar un mapa".
-    mapsEmbedUrl: 'https://www.google.com/maps?q=25+de+Mayo+18+Cordoba+Argentina&output=embed',
+    mapsUrl: 'https://maps.app.goo.gl/D6KoRzQW8Js8nGUj7',
+    directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=-31.4150335,-64.1832367',
+    // Coordenadas tomadas de la ficha real "Los Santos Studio" en Google Maps (enlace aportado por el titular). El mapa embebido no requiere clave.
+    mapsEmbedUrl: 'https://www.google.com/maps?q=-31.4150335,-64.1832367&z=17&output=embed',
     // Horarios de referencia (se muestran como texto; no se calcula "abierto ahora").
     hours: [
       { days: 'Lunes a sábado', time: '10:00–13:00 y 15:00–20:00' },
@@ -93,7 +93,7 @@ window.LS_CONFIG = {
    */
   reviews: {
     sourceLabel: 'Google',
-    sourceUrl: '', // enlace real a la ficha/reseñas (completar al verificar)
+    sourceUrl: 'https://maps.app.goo.gl/D6KoRzQW8Js8nGUj7', // ficha real en Google Maps (reseñas visibles ahí; el contenido de las reseñas de abajo sigue sin verificar)
     // Enlace para que un cliente DEJE una opinión en Google (aportado por el titular; no muestra reseñas).
     writeUrl: 'https://g.page/r/CVgL9JOnUkAiEAE/review',
     items: [

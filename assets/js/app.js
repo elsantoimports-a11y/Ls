@@ -232,6 +232,8 @@
   renderHours();
   renderReviews();
   (function () {
+    var sr = $('#see-reviews');
+    if (sr && C.reviews && C.reviews.sourceUrl) { sr.href = C.reviews.sourceUrl; sr.hidden = false; }
     var a = $('#write-review');
     if (a && C.reviews && C.reviews.writeUrl) { a.href = C.reviews.writeUrl; a.hidden = false; }
   })();
