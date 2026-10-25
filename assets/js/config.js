@@ -191,6 +191,14 @@ window.LS_CONFIG = {
     writeUrl: 'https://g.page/r/CVgL9JOnUkAiEAE/review',
     placeId: 'ChIJz1JnvcCjMpQRWAv0k6dSQCI',
     placesApiKey: '',
-    items: []
+    rating: 5.0,
+    reviewCount: 15,
+    // Reseñas que ya estaban publicadas en una versión anterior de la landing.
+    // Se conservan como testimonios estáticos mientras no se configure Places API.
+    items: [
+      { author: 'Luis Ledesma', date: 'Marzo 2026', text: 'Siempre excelente atención. Súper conforme con el servicio.', verified: true },
+      { author: 'Facu', date: 'Marzo 2026', text: 'El mejor estudio de Córdoba, muy profesional y buena atención.', verified: true },
+      { author: 'Farid', date: 'Marzo 2026', text: 'Excelente atención y servicios, ambiente reconfortante.', verified: true }
+    ]
   }
 };
