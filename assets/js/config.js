@@ -86,17 +86,16 @@ window.LS_CONFIG = {
   ],
 
   /*
-   * Reseñas públicas: se enlaza a la ficha original de Google Maps.
-   * Google no ofrece un feed público de reseñas en tiempo real sin configurar Places API
-   * con clave y facturación o un proveedor de widgets. No mostrar testimonios estáticos como si fueran live.
+   * Reseñas en vivo con Google Places API (New).
+   * Configurar una clave restringida por HTTP referrer a este dominio y habilitar Places API.
+   * La clave no es un secreto en una web estática: restringirla por dominio y cuotas.
    */
   reviews: {
     sourceLabel: 'Google',
     sourceUrl: 'https://maps.app.goo.gl/D6KoRzQW8Js8nGUj7',
     writeUrl: 'https://g.page/r/CVgL9JOnUkAiEAE/review',
     placeId: 'ChIJz1JnvcCjMpQRWAv0k6dSQCI',
-    rating: 5.0,
-    reviewCount: 15,
+    placesApiKey: '',
     items: []
   }
 };
