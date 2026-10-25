@@ -94,6 +94,8 @@ window.LS_CONFIG = {
   reviews: {
     sourceLabel: 'Google',
     sourceUrl: '', // enlace real a la ficha/reseñas (completar al verificar)
+    // Enlace para que un cliente DEJE una opinión en Google (aportado por el titular; no muestra reseñas).
+    writeUrl: 'https://g.page/r/CVgL9JOnUkAiEAE/review',
     items: [
       { author: 'Luis Ledesma', date: 'Marzo 2026', text: 'Siempre excelente atención. Súper conforme con el servicio.', verified: false },
       { author: 'Facu', date: 'Marzo 2026', text: 'El mejor estudio de Córdoba, muy profesional y buena atención.', verified: false },

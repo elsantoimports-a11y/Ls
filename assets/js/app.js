@@ -231,6 +231,10 @@
   renderCatalog();
   renderHours();
   renderReviews();
+  (function () {
+    var a = $('#write-review');
+    if (a && C.reviews && C.reviews.writeUrl) { a.href = C.reviews.writeUrl; a.hidden = false; }
+  })();
   refreshWa();
   wireCalendarLinks();
   wireBar();

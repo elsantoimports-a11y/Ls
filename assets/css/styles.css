@@ -151,3 +151,5 @@ footer .brand-logo{width:120px}
   .mbar[data-hidden="true"]{transform:translateY(110%)}
   .mbar .btn{width:100%}
 }
+
+#write-review{color:var(--gold-light);text-decoration:underline}#write-review[hidden]{display:none}
