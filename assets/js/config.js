@@ -25,7 +25,7 @@ window.LS_CONFIG = {
 
   ai: {
     // Endpoint del backend privado. Completar con la URL del Worker desplegado; nunca poner la API key acá.
-    endpoint: ''
+    endpoint: 'https://ls.elsantoimports.workers.dev'
   },
 
   booking: {
