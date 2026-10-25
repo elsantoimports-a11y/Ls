@@ -11,7 +11,7 @@
 | Aviso si el calendario no carga (12 s) + alternativa WhatsApp | Implementado (detección best-effort: un iframe de otro dominio no permite saber si hubo error). |
 | Servicio elegido → Google Calendar | **No se transmite.** La página de citas de Google no acepta parámetros de servicio. Se avisa al usuario. |
 | Mapa y "Cómo llegar" (Google Maps) | Implementado: mapa embebido por dirección (sin clave) y ruta con la API de URLs de Maps. Marca la dirección escrita, no la ficha del negocio. No probado contra Google desde el entorno de desarrollo. |
-| Reseñas | Cargadas pero **ocultas** (`verified:false`). Ver más abajo. |
+| Reseñas | 3 opiniones visibles (activadas a pedido del titular; deben coincidir con su ficha de Google). Sin puntuación ni cantidad. |
 
 ## Ampliar el catálogo
 1. Copiar un bloque de `catalog` en `config.js`, nuevo `id`, `category`, `name`, `description`, `price`.

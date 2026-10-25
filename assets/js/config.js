@@ -89,17 +89,17 @@ window.LS_CONFIG = {
    * RESEÑAS. Se muestran SOLO las que tengan verified:true.
    * Antes de activar una: confirmar que es una opinión pública real, conservar su sentido original
    * y completar `sourceUrl` con el enlace a la plataforma donde está publicada.
-   * Estas tres vienen de una versión anterior del sitio y su procedencia NO está verificada.
+   * Estas tres vienen de una versión anterior del sitio; el titular pidió mostrarlas (2026-10-25) y debe confirmar que coinciden con su ficha de Google.
    */
   reviews: {
     sourceLabel: 'Google',
-    sourceUrl: 'https://maps.app.goo.gl/D6KoRzQW8Js8nGUj7', // ficha real en Google Maps (reseñas visibles ahí; el contenido de las reseñas de abajo sigue sin verificar)
+    sourceUrl: 'https://maps.app.goo.gl/D6KoRzQW8Js8nGUj7', // ficha real en Google Maps (aportada por el titular)
     // Enlace para que un cliente DEJE una opinión en Google (aportado por el titular; no muestra reseñas).
     writeUrl: 'https://g.page/r/CVgL9JOnUkAiEAE/review',
     items: [
-      { author: 'Luis Ledesma', date: 'Marzo 2026', text: 'Siempre excelente atención. Súper conforme con el servicio.', verified: false },
-      { author: 'Facu', date: 'Marzo 2026', text: 'El mejor estudio de Córdoba, muy profesional y buena atención.', verified: false },
-      { author: 'Farid', date: 'Marzo 2026', text: 'Excelente atención y servicios, ambiente reconfortante.', verified: false }
+      { author: 'Luis Ledesma', date: 'Marzo 2026', text: 'Siempre excelente atención. Súper conforme con el servicio.', verified: true },
+      { author: 'Facu', date: 'Marzo 2026', text: 'El mejor estudio de Córdoba, muy profesional y buena atención.', verified: true },
+      { author: 'Farid', date: 'Marzo 2026', text: 'Excelente atención y servicios, ambiente reconfortante.', verified: true }
     ]
   }
 };
