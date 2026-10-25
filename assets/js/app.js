@@ -189,7 +189,41 @@
     var write = $('#reviews-write-google');
     if (write && R.writeUrl) { write.href = R.writeUrl; }
 
-    // No se muestran puntuaciones ni reseñas inventadas si no está configurada la API.
+    // Fallback: conservar los testimonios previamente aprobados cuando Places API no está configurada.
+    var ratingBox = $('#google-rating-live');
+    var score = $('#google-rating-score');
+    var count = $('#google-rating-count');
+    if (ratingBox && score && typeof R.rating === 'number') {
+      score.textContent = R.rating.toFixed(1) + ' ';
+      var ratingStars = el('span', null, '★★★★★');
+      ratingStars.setAttribute('aria-label', 'estrellas de Google');
+      score.appendChild(ratingStars);
+      count.textContent = 'Calificación pública en Google · ' + (R.reviewCount || 0) + ' reseñas';
+      ratingBox.hidden = false;
+    }
+    var list = $('#google-reviews-live');
+    if (list && Array.isArray(R.items) && R.items.length) {
+      list.textContent = '';
+      R.items.forEach(function (review) {
+        var card = el('article', 'google-review-card');
+        var top = el('div', 'google-review-top');
+        top.appendChild(el('strong', 'google-review-author', review.author || 'Cliente'));
+        top.appendChild(el('span', 'google-review-time', review.date || ''));
+        card.appendChild(top);
+        card.appendChild(el('div', 'google-review-stars', '★★★★★'));
+        card.appendChild(el('p', 'google-review-text', '“' + (review.text || '') + '”'));
+        if (R.sourceUrl) {
+          var source = el('a', 'google-review-attribution', 'Consultar ficha pública');
+          source.href = R.sourceUrl;
+          source.target = '_blank';
+          source.rel = 'noopener';
+          card.appendChild(source);
+        }
+        list.appendChild(card);
+      });
+    }
+
+    // Si existe clave de Places, se intenta actualizar con la ficha en vivo.
     if (!R.placesApiKey || !R.placeId) { return; }
     var script = document.createElement('script');
     script.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(R.placesApiKey) + '&libraries=places&v=weekly';
@@ -200,52 +234,118 @@
       var place = new google.maps.places.Place({ id: R.placeId, requestedLanguage: 'es' });
       place.fetchFields({ fields: ['displayName', 'rating', 'userRatingCount', 'reviews', 'googleMapsURI'] })
         .then(function () {
-          var ratingBox = $('#google-rating-live');
-          var score = $('#google-rating-score');
-          var count = $('#google-rating-count');
           if (ratingBox && typeof place.rating === 'number') {
             score.textContent = place.rating.toFixed(1) + ' ';
-            var stars = el('span', null, '★★★★★');
-            stars.setAttribute('aria-label', 'estrellas de Google');
-            score.appendChild(stars);
+            var liveStars = el('span', null, '★★★★★');
+            liveStars.setAttribute('aria-label', 'estrellas de Google');
+            score.appendChild(liveStars);
             count.textContent = 'Calificación en Google · ' + (place.userRatingCount || 0) + ' reseñas';
             ratingBox.hidden = false;
           }
-          var list = $('#google-reviews-live');
-          if (!list || !Array.isArray(place.reviews)) { return; }
+          if (!list || !Array.isArray(place.reviews) || !place.reviews.length) { return; }
           list.textContent = '';
           place.reviews.forEach(function (review) {
             var card = el('article', 'google-review-card');
             var top = el('div', 'google-review-top');
             var author = review.authorAttribution || {};
-            var name = el('strong', 'google-review-author', author.displayName || 'Cliente de Google');
-            var time = el('span', 'google-review-time', review.relativePublishTimeDescription || '');
-            top.appendChild(name);
-            top.appendChild(time);
-            var stars = el('div', 'google-review-stars', '★'.repeat(Math.max(0, Math.min(5, Number(review.rating) || 0))));
-            stars.setAttribute('aria-label', 'Puntuación: ' + (review.rating || 0) + ' de 5');
+            top.appendChild(el('strong', 'google-review-author', author.displayName || 'Cliente de Google'));
+            top.appendChild(el('span', 'google-review-time', review.relativePublishTimeDescription || ''));
             card.appendChild(top);
-            card.appendChild(stars);
-            if (review.text && review.text.text) {
-              card.appendChild(el('p', 'google-review-text', review.text.text));
-            }
+            card.appendChild(el('div', 'google-review-stars', '★'.repeat(Math.max(0, Math.min(5, Number(review.rating) || 0)))));
+            if (review.text && review.text.text) { card.appendChild(el('p', 'google-review-text', '“' + review.text.text + '”')); }
             if (author.uri) {
-              var attribution = el('a', 'google-review-attribution', 'Ver perfil');
-              attribution.href = author.uri;
-              attribution.target = '_blank';
-              attribution.rel = 'noopener';
+              var attribution = el('a', 'google-review-attribution', 'Ver perfil en Google');
+              attribution.href = author.uri; attribution.target = '_blank'; attribution.rel = 'noopener';
               card.appendChild(attribution);
             }
             list.appendChild(card);
           });
-          if (list.children.length) {
-            var attributionLine = el('p', 'google-review-attribution-line', 'Reseñas proporcionadas por Google');
-            list.appendChild(attributionLine);
-          }
         })
         .catch(function (error) { console.error('No se pudieron cargar las reseñas de Google.', error); });
     };
     document.head.appendChild(script);
+  }
+
+  /* ---------- Partículas interactivas del hero ---------- */
+  function initHeroParticles() {
+    var canvas = $('#hero-particles');
+    var hero = $('.hero');
+    if (!canvas || !hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+    var ctx = canvas.getContext('2d');
+    if (!ctx) { return; }
+    var particles = [], width = 0, height = 0, dpr = 1, pointer = { x: -9999, y: -9999 };
+    var colors = ['198,165,106', '224,197,142', '151,31,38', '190,46,50'];
+    var maxParticles = Math.min(88, Math.max(34, Math.floor(window.innerWidth / 16)));
+    function resize() {
+      var rect = hero.getBoundingClientRect();
+      width = Math.max(1, rect.width); height = Math.max(1, rect.height);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.7);
+      canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
+      canvas.style.width = width + 'px'; canvas.style.height = height + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      maxParticles = Math.min(88, Math.max(30, Math.floor(width / 17)));
+      while (particles.length < maxParticles) {
+        particles.push({
+          x: Math.random() * width, y: Math.random() * height,
+          vx: (Math.random() - .5) * .28, vy: -.12 - Math.random() * .34,
+          r: .7 + Math.random() * 2.1, a: .18 + Math.random() * .55,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          phase: Math.random() * Math.PI * 2, drop: Math.random() > .7
+        });
+      }
+      particles.length = maxParticles;
+    }
+    function movePointer(e) {
+      var rect = hero.getBoundingClientRect();
+      pointer.x = e.clientX - rect.left; pointer.y = e.clientY - rect.top;
+    }
+    hero.addEventListener('pointermove', movePointer, { passive: true });
+    hero.addEventListener('pointerleave', function () { pointer.x = -9999; pointer.y = -9999; });
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    var frame;
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(function (p) {
+        p.phase += .012;
+        p.x += p.vx + Math.sin(p.phase) * .11;
+        p.y += p.vy;
+        var dx = p.x - pointer.x, dy = p.y - pointer.y, dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 115 && dist > 0) { p.x += dx / dist * .45; p.y += dy / dist * .45; }
+        if (p.y < -12) { p.y = height + 8; p.x = Math.random() * width; }
+        if (p.x < -10) p.x = width + 8;
+        if (p.x > width + 10) p.x = -8;
+        var pulse = .72 + Math.sin(p.phase * 1.8) * .22;
+        ctx.beginPath();
+        if (p.drop) {
+          ctx.ellipse(p.x, p.y, p.r * .62, p.r * 1.6, -.28, 0, Math.PI * 2);
+        } else {
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        }
+        ctx.fillStyle = 'rgba(' + p.color + ',' + (p.a * pulse) + ')';
+        ctx.shadowBlur = p.r > 1.7 ? 13 : 5;
+        ctx.shadowColor = 'rgba(' + p.color + ',.55)';
+        ctx.fill();
+      });
+      ctx.shadowBlur = 0;
+      for (var i = 0; i < particles.length; i++) {
+        for (var j = i + 1; j < particles.length; j++) {
+          var a = particles[i], b = particles[j], dx = a.x - b.x, dy = a.y - b.y;
+          var d2 = dx * dx + dy * dy;
+          if (d2 < 90 * 90) {
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = 'rgba(198,165,106,' + (0.07 * (1 - Math.sqrt(d2) / 90)) + ')';
+            ctx.lineWidth = .6; ctx.stroke();
+          }
+        }
+      }
+      frame = window.requestAnimationFrame(draw);
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { window.cancelAnimationFrame(frame); }
+      else { window.cancelAnimationFrame(frame); frame = window.requestAnimationFrame(draw); }
+    });
+    frame = window.requestAnimationFrame(draw);
   }
 
   /* ---------- Barra móvil: se oculta mientras se ve la sección de reserva ---------- */
@@ -283,6 +383,7 @@
   renderCatalog();
   renderHours();
   renderReviews();
+  initHeroParticles();
   (function () {
     var sr = $('#see-reviews');
     if (sr && C.reviews && C.reviews.sourceUrl) { sr.href = C.reviews.sourceUrl; sr.hidden = false; }
