@@ -71,6 +71,10 @@
     textInput.value = '';
     clearOptions();
     var q = text.toLowerCase();
+    if (C.ai && C.ai.endpoint) {
+      askAI(text, q);
+      return;
+    }
     if (/\b(reserv|turno|agenda|horario|cita|disponib)/.test(q)) {
       addMessage('Vamos a llevarte a la reserva. Para consultar horarios reales, abrí la agenda oficial; si preferís coordinar, te conecto por WhatsApp.', 'agent');
       externalAction('Elegir día y horario', C.booking.url, true);
@@ -93,6 +97,51 @@
     option('Volver al inicio', home);
   }
   form.addEventListener('submit', function (e) { e.preventDefault(); handleText(textInput.value); });
+
+  function askAI(text, query) {
+    addMessage('Estoy revisando tu consulta…', 'agent');
+    var pending = messages.lastElementChild;
+    textInput.disabled = true;
+    form.querySelector('button').disabled = true;
+    fetch(C.ai.endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: text,
+        services: activeServices.map(function (s) {
+          return { name: s.name, category: s.category, price: s.price, duration: s.duration, description: s.description };
+        })
+      })
+    }).then(function (response) {
+      if (!response.ok) throw new Error('AI endpoint returned ' + response.status);
+      return response.json();
+    }).then(function (data) {
+      if (!data || typeof data.reply !== 'string' || !data.reply.trim()) throw new Error('Respuesta inválida');
+      pending.textContent = data.reply.trim().slice(0, 1800);
+      clearOptions();
+      if (/\\b(reserv|turno|agenda|horario|cita|disponib)\\b/.test(query)) {
+        externalAction('Elegir día y horario', C.booking.url, true);
+        externalAction('Coordinar por WhatsApp', waLink(chosen), false);
+      } else if (/\\b(precio|cu[aá]nto|vale|cuesta|servicio|corte|barba|ceja|facial|gema|cristal)\\b/.test(query)) {
+        option('Ver catálogo y precios', allPrices);
+        externalAction('Reservar por agenda', C.booking.url, true);
+        externalAction('Consultar por WhatsApp', waLink(chosen), false);
+      } else {
+        option('Ver servicios', allPrices);
+        externalAction('Reservar turno', C.booking.url, true);
+        externalAction('WhatsApp', waLink(chosen), false);
+      }
+    }).catch(function () {
+      pending.textContent = 'Ahora no pude responder con el asistente inteligente. Podés consultar el catálogo o escribirnos directamente por WhatsApp.';
+      clearOptions();
+      option('Ver todos los servicios', allPrices);
+      externalAction('Consultar por WhatsApp', waLink(chosen), true);
+    }).finally(function () {
+      textInput.disabled = false;
+      form.querySelector('button').disabled = false;
+      textInput.focus();
+    });
+  }
 
   function home() {
     clearOptions();
