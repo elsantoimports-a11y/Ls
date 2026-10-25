@@ -96,6 +96,7 @@ window.LS_CONFIG = {
     writeUrl: 'https://g.page/r/CVgL9JOnUkAiEAE/review',
     placeId: 'ChIJz1JnvcCjMpQRWAv0k6dSQCI',
     rating: 5.0,
-    reviewCount: 15
+    reviewCount: 15,
+    items: []
   }
 };
