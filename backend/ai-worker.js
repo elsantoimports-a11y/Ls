@@ -5,7 +5,7 @@
  */
 const MAX_BODY_LENGTH = 12000;
 const MAX_MESSAGE_LENGTH = 500;
-const MODEL = "@cf/meta/llama-3-8b-instruct";
+const MODEL = "anthropic/claude-haiku-5.5";
 
 function json(data, status, origin) {
   return new Response(JSON.stringify(data), {
