@@ -173,27 +173,32 @@
     } else { loadCalendar(); }
   }
 
-  /* ---------- Reseñas (solo verificadas) ---------- */
+  /* ---------- Ficha y reseñas de Google ---------- */
   function renderReviews() {
-    var R = C.reviews; if (!R) { return; }
-    var ok = (R.items || []).filter(function (r) { return r.verified; });
-    if (!ok.length) { return; }
-    var grid = $('#reviews-grid');
-    ok.forEach(function (r) {
-      var f = el('figure', 'review');
-      f.appendChild(el('blockquote', null, '“' + r.text + '”'));
-      var cap = el('figcaption');
-      cap.appendChild(el('strong', null, r.author));
-      cap.appendChild(el('span', null, r.date || ''));
-      f.appendChild(cap); grid.appendChild(f);
-    });
-    if (R.sourceUrl) {
-      var p = $('#reviews-src');
-      var a = el('a', null, 'Ver las opiniones en ' + R.sourceLabel);
-      a.href = R.sourceUrl; a.target = '_blank'; a.rel = 'noopener';
-      p.appendChild(a);
+    var R = C.reviews;
+    if (!R) { return; }
+    var section = $('#resenas');
+    if (!section) { return; }
+    var frame = $('#google-reviews-embed');
+    if (frame && R.placeId) {
+      // Embed oficial de Google Maps: la ficha se mantiene enlazada a la fuente original.
+      frame.src = 'https://www.google.com/maps?output=embed&q=place_id:' + encodeURIComponent(R.placeId);
     }
-    $('#resenas').hidden = false;
+    var score = $('.google-rating-score');
+    if (score && typeof R.rating === 'number') {
+      score.textContent = R.rating.toFixed(1) + ' ';
+      var stars = el('span', null, '★★★★★');
+      stars.setAttribute('aria-hidden', 'true');
+      score.appendChild(stars);
+    }
+    var ratingLine = $('.google-rating p');
+    if (ratingLine && typeof R.reviewCount === 'number') {
+      ratingLine.textContent = 'Calificación en Google · ' + R.reviewCount + ' reseñas';
+    }
+    var open = $('#reviews-open-google');
+    if (open && R.sourceUrl) { open.href = R.sourceUrl; }
+    var write = $('#reviews-write-google');
+    if (write && R.writeUrl) { write.href = R.writeUrl; }
   }
 
   /* ---------- Barra móvil: se oculta mientras se ve la sección de reserva ---------- */
