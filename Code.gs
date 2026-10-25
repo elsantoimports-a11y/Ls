@@ -14,10 +14,18 @@ const LSOS_CONFIG = {
 };
 
 const LSOS_SERVICES = {
-  'Corte de cabello': { price: 22000, duration: 45 },
-  'Corte + barba': { price: 30000, duration: 60 },
-  'Limpieza facial express': { price: 15000, duration: 40 },
-  'Limpieza facial deluxe': { price: 27000, duration: 60 }
+  'Corte De Autor 🇦🇷 ✂️': { price: 23000, duration: 40 },
+  'Atención - Estándar - Corte y Cejas': { price: 27000, duration: 45 },
+  'Atención - Ejecutiva - Corte / Cejas / Barba 🏅': { price: 40000, duration: 40 },
+  'Atención - Deluxe 💎': { price: 70000, duration: 100 },
+  'Arreglo de Barba Express': { price: 15000, duration: 20 },
+  'Ritual de Barba (Toallas Calientes)': { price: 18000, duration: 25 },
+  'Perfilado y Diseño de Cejas': { price: 5000, duration: 20 },
+  'Limpieza Facial Deluxe': { price: 35000, duration: 30 },
+  'Limpieza Facial Express': { price: 25000, duration: 20 },
+  'Cristales Simples 💠': { price: 15000, duration: 15 },
+  'Cristales con Forma 💠': { price: 22000, duration: 15 },
+  'Combinaciones de Cristales 💎🎁': { price: 30000, duration: 20 }
 };
 
 function lsCalendar_() {
