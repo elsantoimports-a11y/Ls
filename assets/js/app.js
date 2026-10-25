@@ -181,24 +181,70 @@
     if (!section) { return; }
     var frame = $('#google-reviews-embed');
     if (frame && R.placeId) {
-      // Embed oficial de Google Maps: la ficha se mantiene enlazada a la fuente original.
       frame.src = 'https://www.google.com/maps?output=embed&q=place_id:' + encodeURIComponent(R.placeId);
-    }
-    var score = $('.google-rating-score');
-    if (score && typeof R.rating === 'number') {
-      score.textContent = R.rating.toFixed(1) + ' ';
-      var stars = el('span', null, '★★★★★');
-      stars.setAttribute('aria-hidden', 'true');
-      score.appendChild(stars);
-    }
-    var ratingLine = $('.google-rating p');
-    if (ratingLine && typeof R.reviewCount === 'number') {
-      ratingLine.textContent = 'Calificación en Google · ' + R.reviewCount + ' reseñas';
     }
     var open = $('#reviews-open-google');
     if (open && R.sourceUrl) { open.href = R.sourceUrl; }
     var write = $('#reviews-write-google');
     if (write && R.writeUrl) { write.href = R.writeUrl; }
+
+    // No se muestran puntuaciones ni reseñas inventadas si no está configurada la API.
+    if (!R.placesApiKey || !R.placeId) { return; }
+    var script = document.createElement('script');
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(R.placesApiKey) + '&libraries=places&v=weekly';
+    script.async = true;
+    script.onerror = function () { console.error('No se pudo cargar Google Places API.'); };
+    script.onload = function () {
+      if (!window.google || !google.maps || !google.maps.places || !google.maps.places.Place) { return; }
+      var place = new google.maps.places.Place({ id: R.placeId, requestedLanguage: 'es' });
+      place.fetchFields({ fields: ['displayName', 'rating', 'userRatingCount', 'reviews', 'googleMapsURI'] })
+        .then(function () {
+          var ratingBox = $('#google-rating-live');
+          var score = $('#google-rating-score');
+          var count = $('#google-rating-count');
+          if (ratingBox && typeof place.rating === 'number') {
+            score.textContent = place.rating.toFixed(1) + ' ';
+            var stars = el('span', null, '★★★★★');
+            stars.setAttribute('aria-label', 'estrellas de Google');
+            score.appendChild(stars);
+            count.textContent = 'Calificación en Google · ' + (place.userRatingCount || 0) + ' reseñas';
+            ratingBox.hidden = false;
+          }
+          var list = $('#google-reviews-live');
+          if (!list || !Array.isArray(place.reviews)) { return; }
+          list.textContent = '';
+          place.reviews.forEach(function (review) {
+            var card = el('article', 'google-review-card');
+            var top = el('div', 'google-review-top');
+            var author = review.authorAttribution || {};
+            var name = el('strong', 'google-review-author', author.displayName || 'Cliente de Google');
+            var time = el('span', 'google-review-time', review.relativePublishTimeDescription || '');
+            top.appendChild(name);
+            top.appendChild(time);
+            var stars = el('div', 'google-review-stars', '★'.repeat(Math.max(0, Math.min(5, Number(review.rating) || 0))));
+            stars.setAttribute('aria-label', 'Puntuación: ' + (review.rating || 0) + ' de 5');
+            card.appendChild(top);
+            card.appendChild(stars);
+            if (review.text && review.text.text) {
+              card.appendChild(el('p', 'google-review-text', review.text.text));
+            }
+            if (author.uri) {
+              var attribution = el('a', 'google-review-attribution', 'Ver perfil');
+              attribution.href = author.uri;
+              attribution.target = '_blank';
+              attribution.rel = 'noopener';
+              card.appendChild(attribution);
+            }
+            list.appendChild(card);
+          });
+          if (list.children.length) {
+            var attributionLine = el('p', 'google-review-attribution-line', 'Reseñas proporcionadas por Google');
+            list.appendChild(attributionLine);
+          }
+        })
+        .catch(function (error) { console.error('No se pudieron cargar las reseñas de Google.', error); });
+    };
+    document.head.appendChild(script);
   }
 
   /* ---------- Barra móvil: se oculta mientras se ve la sección de reserva ---------- */
