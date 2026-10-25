@@ -73,6 +73,11 @@
         if (s.duration) { h.appendChild(el('span', 'dur', s.duration + ' min')); }
         info.appendChild(h);
         info.appendChild(el('p', null, s.description));
+        var meta = el('div', 'svc-meta');
+        if (s.duration) { meta.appendChild(el('span', 'svc-meta-item', '◷ ' + (s.duration >= 60 ? Math.floor(s.duration / 60) + ' h' + (s.duration % 60 ? ' ' + (s.duration % 60) + ' min' : '') : s.duration + ' min'))); }
+        if (s.depositPercent) { meta.appendChild(el('span', 'svc-meta-item svc-deposit', 'Seña ' + s.depositPercent + '% · ' + money(Math.round(s.price * s.depositPercent / 100)))); }
+        if (s.extras) { meta.appendChild(el('span', 'svc-meta-item', s.extras + ' adicionales')); }
+        if (meta.children.length) { info.appendChild(meta); }
         var price = el('div', 'price', money(s.price));
         var btn = el('button', 'btn small', 'Elegir servicio');
         btn.type = 'button';
@@ -98,7 +103,7 @@
     if (selected) {
       $('#chosen-name').textContent = selected.name + ' · ' + money(selected.price);
       var note = $('#chosen-note');
-      note.textContent = 'Google Calendar no recibe esta elección automáticamente: indicá el servicio al reservar o confirmalo por ';
+      note.textContent = 'Seña del ' + (selected.depositPercent || 90) + '%: ' + money(Math.round(selected.price * (selected.depositPercent || 90) / 100)) + '. Google Calendar no recibe esta elección automáticamente: indicá el servicio al reservar o confirmalo por ';
       var a = el('a', null, 'WhatsApp');
       a.href = waHref(); a.target = '_blank'; a.rel = 'noopener';
       a.setAttribute('data-track', 'whatsapp_click'); a.setAttribute('data-where', 'chosen_note');
