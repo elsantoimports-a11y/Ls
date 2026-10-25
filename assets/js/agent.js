@@ -119,10 +119,10 @@
       if (!data || typeof data.reply !== 'string' || !data.reply.trim()) throw new Error('Respuesta inválida');
       pending.textContent = data.reply.trim().slice(0, 1800);
       clearOptions();
-      if (/\\b(reserv|turno|agenda|horario|cita|disponib)\\b/.test(query)) {
+      if (/\b(reserv|turno|agenda|horario|cita|disponib)\b/.test(query)) {
         externalAction('Elegir día y horario', C.booking.url, true);
         externalAction('Coordinar por WhatsApp', waLink(chosen), false);
-      } else if (/\\b(precio|cu[aá]nto|vale|cuesta|servicio|corte|barba|ceja|facial|gema|cristal)\\b/.test(query)) {
+      } else if (/\b(precio|cu[aá]nto|vale|cuesta|servicio|corte|barba|ceja|facial|gema|cristal)\b/.test(query)) {
         option('Ver catálogo y precios', allPrices);
         externalAction('Reservar por agenda', C.booking.url, true);
         externalAction('Consultar por WhatsApp', waLink(chosen), false);
