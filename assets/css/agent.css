@@ -1,0 +1,29 @@
+/* Los Santos Studio — asistente de reservas */
+#ls-agent-launch{position:fixed;right:22px;bottom:24px;z-index:60;display:flex;align-items:center;gap:11px;padding:13px 18px;border:1px solid #e0c58e;background:#c6a56a;color:#111;font:800 .76rem/1.2 Manrope,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 12px 35px #0008;cursor:pointer;transition:transform .2s,background .2s}
+#ls-agent-launch:hover{transform:translateY(-3px);background:#e0c58e}
+#ls-agent-launch .ls-agent-icon{display:grid;place-items:center;width:29px;height:29px;border:1px solid #1115;border-radius:50%;font-size:1.1rem}
+#ls-agent-panel{position:fixed;right:22px;bottom:88px;z-index:61;width:min(390px,calc(100vw - 28px));max-height:min(640px,calc(100dvh - 125px));display:none;flex-direction:column;overflow:hidden;background:#10100f;color:#f4f1ea;border:1px solid #c6a56a88;box-shadow:0 22px 80px #000b;font:400 14px/1.5 Manrope,system-ui,sans-serif}
+#ls-agent-panel[data-open="true"]{display:flex;animation:ls-agent-in .18s ease-out}
+@keyframes ls-agent-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.ls-agent-head{display:flex;align-items:center;gap:12px;padding:17px 18px;background:linear-gradient(110deg,#201c14,#111);border-bottom:1px solid #ffffff18}
+.ls-agent-avatar{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border:1px solid #c6a56a;background:#c6a56a14;color:#e0c58e;font-weight:800}
+.ls-agent-head-copy{flex:1;min-width:0}
+.ls-agent-head-copy strong{display:block;font-size:.9rem}
+.ls-agent-head-copy span{display:block;color:#c6a56a;font-size:.7rem}
+#ls-agent-close{border:0;background:transparent;color:#eee;font-size:1.45rem;cursor:pointer;padding:5px 8px}
+.ls-agent-messages{padding:18px;overflow:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:12px;min-height:160px}
+.ls-agent-msg{max-width:92%;padding:12px 14px;background:#1b1b19;border:1px solid #ffffff15;color:#eee;white-space:pre-line}
+.ls-agent-msg.agent{align-self:flex-start;border-left:2px solid #c6a56a}
+.ls-agent-msg.user{align-self:flex-end;background:#c6a56a18;border-color:#c6a56a44}
+.ls-agent-options{display:flex;flex-wrap:wrap;gap:8px;padding:0 18px 16px}
+.ls-agent-option{border:1px solid #c6a56a88;background:transparent;color:#f4f1ea;padding:10px 12px;text-align:left;font:700 .75rem/1.35 Manrope,system-ui,sans-serif;cursor:pointer;transition:background .15s,border-color .15s}
+.ls-agent-option:hover{background:#c6a56a1e;border-color:#e0c58e}
+.ls-agent-option.primary{background:#c6a56a;color:#111;border-color:#c6a56a}
+.ls-agent-option.full{width:100%}
+.ls-agent-service{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:12px;border:1px solid #ffffff20;background:#171715;color:#f4f1ea;text-align:left;cursor:pointer}
+.ls-agent-service strong{display:block;font-size:.76rem}
+.ls-agent-service small{display:block;margin-top:3px;color:#b9b4aa}
+.ls-agent-service b{white-space:nowrap;color:#e0c58e;font-size:.78rem}
+.ls-agent-foot{padding:11px 18px;border-top:1px solid #ffffff16;color:#a9a59c;font-size:.66rem}
+@media(max-width:680px){#ls-agent-launch{right:12px;bottom:calc(84px + env(safe-area-inset-bottom));padding:11px 13px;font-size:.68rem}#ls-agent-panel{right:8px;bottom:calc(142px + env(safe-area-inset-bottom));width:calc(100vw - 16px);max-height:min(590px,calc(100dvh - 170px))}.ls-agent-messages{padding:14px}.ls-agent-options{padding:0 14px 14px}}
+@media(prefers-reduced-motion:reduce){#ls-agent-panel[data-open="true"]{animation:none}#ls-agent-launch{transition:none}}
