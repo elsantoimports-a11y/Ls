@@ -103,10 +103,11 @@
         <h2 id="h-rev">La experiencia de <span class="gold">nuestros clientes.</span></h2>
         <p class="reviews-intro">Consultá las reseñas publicadas en nuestra ficha de Google. Se abren desde la fuente original para que puedas leer las opiniones completas y sus fechas.</p>
       </div>
-      <div class="google-rating" aria-label="Calificación de Google: 5 de 5 estrellas, 15 reseñas">
-        <div class="google-rating-score">5.0 <span aria-hidden="true">★★★★★</span></div>
-        <p>Calificación en Google <span class="rating-separator">·</span> 15 reseñas</p>
+      <div id="google-rating-live" class="google-rating" hidden aria-live="polite">
+        <div id="google-rating-score" class="google-rating-score"></div>
+        <p id="google-rating-count">Calificación en Google</p>
       </div>
+      <div id="google-reviews-live" class="google-reviews-live" aria-live="polite"></div>
       <div class="google-reviews-frame">
         <iframe id="google-reviews-embed" title="Ficha de Los Santos Studio en Google Maps, donde se pueden consultar las reseñas" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
